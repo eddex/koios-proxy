@@ -1,0 +1,28 @@
+{
+  "name": "koios-proxy",
+  "version": "1.0.0",
+  "description": "HTTP proxy server for the Koios API",
+  "main": "proxy.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eddex/koios-proxy.git"
+  },
+  "keywords": [
+    "koios",
+    "cardano",
+    "proxy"
+  ],
+  "author": "eddex",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/eddex/koios-proxy/issues"
+  },
+  "homepage": "https://github.com/eddex/koios-proxy#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "http-proxy-middleware": "^2.0.6"
+  }
+}

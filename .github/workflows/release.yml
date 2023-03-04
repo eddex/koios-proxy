@@ -1,0 +1,24 @@
+name: Docker Image CI
+
+on:
+  push:
+    tags:
+      - "*" # all tags
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build the Docker image
+        run: docker build -t eddex/koios-proxy:${{ github.ref_name }} -t eddex/koios-proxy:latest -f ./KoiosProxy/Dockerfile .
+      - name: Docker Login (docker hub)
+        uses: docker/login-action@v2.1.0
+        with:
+          username: eddex
+          password: ${{ secrets.DOCKER_HUB_PAT }}
+      - name: Docker push latest
+        run: docker push eddex/koios-proxy:latest
+      - name: Docker push tag
+        run: docker push eddex/koios-proxy:${{ github.ref_name }}

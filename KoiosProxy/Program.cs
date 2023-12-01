@@ -21,9 +21,10 @@ builder.Services.AddRateLimiter(_ => _.AddFixedWindowLimiter("koiosRateLimiterPo
     opt.QueueLimit = 0;
 }));
 
+const string corsPolicyName = "proxyCorsPolicy";
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: "proxyCorsPolicy", policy =>
+    options.AddPolicy(name: corsPolicyName, policy =>
     {
         policy.WithOrigins(corsOrigins?.Split(',') ?? new[] { "*" });
         policy.AllowAnyHeader();
@@ -34,7 +35,7 @@ builder.Services.AddCors(options =>
 // Configure
 var app = builder.Build();
 
-app.UseCors();
+app.UseCors(corsPolicyName);
 app.UseRateLimiter();
 
 app.MapReverseProxy();

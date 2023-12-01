@@ -12,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddReverseProxy()
     .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
 
-builder.Services.AddRateLimiter(_ =>_.AddFixedWindowLimiter("koiosRateLimiterPolicy", opt =>
+builder.Services.AddRateLimiter(_ => _.AddFixedWindowLimiter("koiosRateLimiterPolicy", opt =>
 {
     // configured according to https://api.koios.rest/#overview--limits
     opt.PermitLimit = 100;
@@ -26,6 +26,8 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: "proxyCorsPolicy", policy =>
     {
         policy.WithOrigins(corsOrigins?.Split(',') ?? new[] { "*" });
+        policy.AllowAnyHeader();
+        policy.AllowAnyMethod();
     });
 });
 
